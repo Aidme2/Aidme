@@ -1,10 +1,9 @@
 import React from "react";
 import "./Service.css";
-import Pic from "../../assets/Services.png";
 import Pref from "../../assets/prefer.png";
 import Shop from "../../assets/shopping.png";
 import Personal from "../../assets/personal.png";
-import Handy from "../../assets/Handy.png";
+import Handy from "../../assets/handy.png";
 import Clean from "../../assets/cleaning.png";
 import Moving from "../../assets/moving.png";
 import Office from "../../assets/office.png";
@@ -12,7 +11,6 @@ import Furniture from "../../assets/furniture.png";
 import Party from "../../assets/party.png";
 import Holiday from "../../assets/holiday.png";
 import Yard from "../../assets/yard.png";
-import { Link } from "react-router-dom";
 
 function Service() {
   return (

@@ -1,18 +1,18 @@
 import React from "react";
 import "./errand.css";
 import Woman from "../../assets/woman.png";
-import Vector from "../../assets/Vector 8.png";
-import Ellipse from "../../assets/Ellipse 2.png";
+import Vector from "../../assets/vector 8.png";
+import Ellipse from "../../assets/ellipse 2.png";
 import King from "../../assets/king 1.png";
 import Money from "../../assets/money-bag 1.png";
 import Promotion from "../../assets/promotion 1.png";
-import Man from "../../assets/Rectangle 36.png";
-import One from "../../assets/One.png";
-import Two from "../../assets/Two.png";
-import Three from "../../assets/Three.png";
-import Four from "../../assets/Four.png";
-import Five from "../../assets/Five.png";
-import Six from "../../assets/Six.png";
+import Man from "../../assets/rectangle 36.png";
+import One from "../../assets/one.png";
+import Two from "../../assets/two.png";
+import Three from "../../assets/three.png";
+import Four from "../../assets/four.png";
+import Five from "../../assets/five.png";
+import Six from "../../assets/six.png";
 import { MdCancel } from "react-icons/md";
 
 const Errander = ({
