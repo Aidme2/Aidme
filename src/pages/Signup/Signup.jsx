@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Signup.scss";
 import Rocket from "../../assets/rocket.svg";
 import Button from "../../components/Button/Button";
 import { Link } from "react-router-dom";
 
 function Signup() {
+ 
   return (
     <div className="signup">
       <div className="login_section">
@@ -12,7 +13,7 @@ function Signup() {
         <h1>Welcome</h1>
         <p>You are 28 seconds from exploring the wonderful experience</p>
 
-        <Link to='/login' className="log">
+        <Link to="/login" className="log">
           <Button
             input="Login"
             color="#eb2024"
@@ -27,21 +28,69 @@ function Signup() {
       </div>
       <div className="signup_form">
         <h1>Aid me</h1>
+        type="text" placeholder="Your Phone *" className="input"
         <form>
           <div className="form">
-            <input type="text" placeholder="First Name *"className="input" ></input>
-            <input type="email" placeholder="Your Email * " className="input" ></input>
-            <input type="text" placeholder="Last Name *" className="input" ></input>
-            <input type="text" placeholder="Your Phone *" className="input" ></input>
-            <input type="password" placeholder="Password *" className="input" ></input>
-            <input type="text" placeholder="Address *"className="input" ></input>
-            <input type="password" placeholder="Confrim Password* " className="input" ></input>
-            <input type="text" placeholder="Country*" className="input" ></input>
+            <input
+              type="text"
+              placeholder="First Name *"
+              className="input"
+              name="firstName"
+
+            />
+            <input
+              type="email"
+              placeholder="Your Email * "
+              name="email"
+              className="input"
+          
+            />
+            <input
+              type="text"
+              placeholder="Last Name *"
+              name="lastName"
+              className="input"
+            
+            />
+            <input
+              type="text"
+              placeholder="Phone number *"
+              name="phone"
+              className="input"
+            
+            />
+            <input
+              type="password"
+              placeholder="Password *"
+              className="input"
+              name="password"
+            
+            />
+            <input
+              type="text"
+              placeholder="Address *"
+              name="address"
+              className="input"
+           
+            />
+            <input
+              type="password"
+              placeholder="Confirm Password* "
+              name="confirmPassword"
+              className="input"
+            
+            />
+            <input
+              type="text"
+              placeholder="Country*"
+              name="country"
+              className="input"
+            />
           </div>
-          <div className="gender">
+          {/* <div className="gender">
             <div className="checkbox" /> Male <div className="checkbox" />
             Female
-          </div>
+          </div> */}
           <p>
             By signing up you agree to our <span>Terms</span> of Use and{" "}
             <span> Privacy Policy.</span>

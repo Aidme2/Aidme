@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./errand.css";
 import Woman from "../../assets/woman.png";
 import Vector from "../../assets/vector 8.png";
@@ -14,6 +14,10 @@ import Four from "../../assets/four.png";
 import Five from "../../assets/five.png";
 import Six from "../../assets/six.png";
 import { MdCancel } from "react-icons/md";
+import { AiFillEyeInvisible } from "react-icons/ai";
+import { AiFillEye } from "react-icons/ai";
+import { RxCross2 } from "react-icons/rx";
+import axios from "axios";
 
 const Errander = ({
   open,
@@ -40,10 +44,113 @@ const Errander = ({
   last,
   lastOpen,
   lastClose,
-   isErrand,
-   openIsErrand,
-   closeIsErrand
+  isErrand,
+  openIsErrand,
+  closeIsErrand,
 }) => {
+  const [type, setType] = useState("password");
+  const [icon, setIcon] = useState(AiFillEyeInvisible);
+
+  const handleToggle = () => {
+    if (type === "password") {
+      setType("text");
+      setIcon(AiFillEye);
+    } else {
+      setType("password");
+      setIcon(AiFillEyeInvisible);
+    }
+  };
+
+  // Sign up details
+  const [values, setValues] = useState({
+    firstName: "",
+    email: "",
+    lastName: "",
+    phone: "",
+    password: "",
+    state: "",
+    address: "",
+    country: "",
+    gender:'',
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setValues((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+  const handleSubmit =  (event) => {
+    const url = "https://aidme.onrender.com/v1/errander/auth/register";
+    event.preventDefault();
+    axios
+      .post(url, {
+        firstName: values.firstName,
+        email: values.email,
+        lastName: values.lastName,
+        phone: values.phone,
+        password: values.password,
+        state: values.state,
+        address: values.address,
+        country: values.country,
+        gender:values.gender,
+        countryCode:values.countryCode,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+    alert('log in success')
+    // console.log(values);
+    setValues({
+      firstName: "",
+      email: "",
+      lastName: "",
+      phone: "",
+      password: "",
+      state: "",
+      address: "",
+      country: "",
+      countryCode:'',
+      gender:'',
+    });
+  };
+
+  // Login details
+  const [usernameInputValue, setUsernameInputValue] = useState("");
+  const [passwordInputValue, setPasswordInputValue] = useState("");
+
+  const handleUsernameInputChange = (event) => {
+    setUsernameInputValue(event.target.value);
+  };
+  const handlePasswordInputChange = (event) => {
+    setPasswordInputValue(event.target.value);
+  };
+  const handleLogin = (event) => {
+    const login = "https://aidme.onrender.com/v1/errander/auth/login";
+    event.preventDefault();
+    console.log(usernameInputValue, passwordInputValue);
+    axios
+      .post(login, {
+        email: usernameInputValue,
+        password: passwordInputValue,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setPasswordInputValue("");
+    setUsernameInputValue("");
+  };
+
   return (
     <div>
       <hr />
@@ -58,80 +165,42 @@ const Errander = ({
             working on your own schedule.
           </p>
           <h5>Select your Country</h5>
-          <select value="">
-            <option name="" id="">
-              Nigeria
-            </option>
-            <option name="" id="">
-              Ghana
-            </option>
-            <option name="" id="">
-              South Africa
-            </option>
-            <option name="" id="">
-              Egypt
-            </option>
+          <select>
+            <option>Nigeria</option>
+            <option>Ghana</option>
+            <option>South Africa</option>
+            <option>Egypt</option>
           </select>
-          <h5>Select your Area</h5>
-          <select value="">
-            <option name="" id="">
-              Lagos
-            </option>
-            <option name="" id="">
-              Ogun
-            </option>
-            <option name="" id="">
-              Abuja
-            </option>
-            <option name="" id="">
-              Oyo
-            </option>
+          <h5>Select your State</h5>
+          <select>
+            <option>Lagos</option>
+            <option>Ogun</option>
+            <option>Abuja</option>
+            <option>Oyo</option>
           </select>
           <h5>Select your Category</h5>
-          <select value="">
-            <option name="" id="">
-              Cleaning
-            </option>
-            <option name="" id="">
-           Delivey & Errands
-            </option>
-            <option name="" id="">
-              Handy Man
-            </option>
-            <option name="" id="">
-              Moving and Packing
-            </option>
-            <option name="" id="">
-              Furniture Assembly
-            </option>
-            <option value="">
-              Mounting & installation
-            </option>
-            <option value="">
-              Personal Assistant
-            </option>
-            <option value="">
-              Home Improvement
-            </option>
-            <option value="">
-              Events & Photography
-            </option>
-            <option value="">
-              Virtual & Online Tasks
-            </option>
-            <option value="">
-              Fitness & Wellness
-            </option>
-            <option value="">
-              Pet Services
-            </option>
-            <option value="">
-              Elder Care & Companionship
-            </option>
+          <select>
+            <option>Cleaning</option>
+            <option>Delivey & Errands</option>
+            <option>Handy Man</option>
+            <option>Moving and Packing</option>
+            <option>Furniture Assembly</option>
+            <option>Mounting & installation</option>
+            <option>Personal Assistant</option>
+            <option>Home Improvement</option>
+            <option>Events & Photography</option>
+            <option>Virtual & Online Tasks</option>
+            <option>Fitness & Wellness</option>
+            <option>Pet Services</option>
+            <option>Elder Care & Companionship</option>
           </select>
-          <h6 style={{visibility:'hidden'}}>
+          <h6 style={{ visibility: "hidden" }}>
             $25per
-            <small style={{ fontSize: "10px", color: "black",visibility:'hidden'}}>/ hour?</small>
+            <small
+              style={{ fontSize: "10px", color: "black", visibility: "hidden" }}
+            >
+              / hour?
+            </small>
           </h6>
           <button className="get" onClick={openModal}>
             Get Started
@@ -145,7 +214,12 @@ const Errander = ({
             }}
           >
             Already have an account?{" "}
-            <small style={{ color: "red", fontSize: "11px" }} onClick={openIsErrand} >Sign in</small>
+            <small
+              style={{ color: "red", fontSize: "11px" }}
+              onClick={openIsErrand}
+            >
+              Sign in
+            </small>
           </h6>
         </div>
       </div>
@@ -154,30 +228,103 @@ const Errander = ({
         {open ? (
           <div className="modals">
             <button onClick={close} className="hr-btng">
-              <MdCancel />
+              <RxCross2 />
             </button>
             <h4>Create your account</h4>
             <div className="form">
-              <input type="text" placeholder="First Name *" className="input" />
+              <input
+                type="text"
+                placeholder="First Name *"
+                className="input"
+                name="firstName"
+                value={values.firstName}
+                onChange={handleChange}
+                required
+              />
               <input
                 type="email"
                 placeholder="Your Email * "
                 className="input"
+                name="email"
+                values={values.email}
+                onChange={handleChange}
+                required
               />
-              <input type="text" placeholder="Last Name *" className="input" />
-              <input type="number" placeholder="Your Phone *" className="input" />
               <input
-                type="password"
+                type="text"
+                placeholder="Last Name *"
+                className="input"
+                name="lastName"
+                value={values.lastName}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                placeholder="Your Phone *"
+                className="input"
+                name="phone"
+                value={values.phone}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type={type}
                 placeholder="Password *"
                 className="input"
+                name="password"
+                value={values.password}
+                onChange={handleChange}
+                required
               />
-              <input type="text" placeholder="Address *" className="input" />
+              <span className="eye" onClick={handleToggle}>
+                {icon}
+              </span>
               <input
-                type="password"
-                placeholder="ConfirmPassword* "
+                type="text"
+                placeholder="State *"
                 className="input"
+                name="state"
+                value={values.state}
+                onChange={handleChange}
+                required
               />
-              <input type="text" placeholder="Country*" className="input" />
+              <input
+                type="text"
+                placeholder="Country code* "
+                className="input top"
+                name="countryCode"
+                value={values.countryCode}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                placeholder="Country*"
+                name="country"
+                className="input"
+                value={values.country}
+                onChange={handleChange}
+                required
+              />
+                <input
+                type="text"
+                placeholder="Gender*"
+                name="gender"
+                className="input"
+                value={values.gender}
+                onChange={handleChange}
+                required
+              />
+               <input
+                type="text"
+                placeholder="Address*"
+                name="address"
+                className="input"
+                value={values.address}
+                onChange={handleChange}
+                required
+              />
             </div>
             <div className="form-footer">
               <h6 className="context">
@@ -186,31 +333,60 @@ const Errander = ({
               </h6>
             </div>
             <div className="reg-btn">
-                  <button className="errander-log">Register</button>
+              <button
+                type="submit"
+                className="errander-log"
+                onClick={handleSubmit}
+              >
+                Register
+              </button>
             </div>
           </div>
         ) : null}
-       
-        {
-          isErrand? (
-            <div className="errand-login-btn">
-                    <button onClick={closeIsErrand} className="hr-btng">
-              <MdCancel />
+        {/*  Errander login  */}
+        {isErrand ? (
+          <div className="errand-login-btn">
+            <button onClick={closeIsErrand} className="hr-btng">
+              <RxCross2 />
             </button>
-             <div>
-                     <h3 className="errand-heading">Login to Continue</h3>
-             </div>
-              <div className="errander-input">
-                   <input type="email" name="" id="" placeholder="Your Email *"  className="errand-input"/>
-                   <input type="password" name="" id="" placeholder="Password *" className="errand-input" />
-                    <h5 className="forget">Forget Password</h5>
-              </div>
-               <div className="reg-btn">
-                    <button className="errand-btn">Login</button>
-               </div>
-            </div> 
-          ) : null
-        }
+            <div>
+              <h3 className="errand-heading">Login to Continue</h3>
+            </div>
+            <div className="errander-input">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Your Email *"
+                className="errand-input"
+                value={usernameInputValue}
+                onChange={handleUsernameInputChange}
+              />
+              <input
+                type={type}
+                name="password"
+                id="password"
+                placeholder="Password *"
+                className="errand-input"
+                value={passwordInputValue}
+                onChange={handlePasswordInputChange}
+              />
+              <span className="eye-ii" onClick={handleToggle}>
+                {icon}
+              </span>
+              <h5 className="forget">Forget Password</h5>
+            </div>
+            <div className="reg-btn">
+              <button
+                type="submit"
+                className="errand-btn"
+                onClick={handleLogin}
+              >
+                Login
+              </button>
+            </div>
+          </div>
+        ) : null}
         <section>
           <article>
             <img src={Vector} alt="" />
@@ -298,8 +474,8 @@ const Errander = ({
             fontFamily: "Segoe UI",
             paddingTop: "20px",
             paddingBottom: "50px",
-            fontSize:'19px',
-            fontWeight:'bold'
+            fontSize: "19px",
+            fontWeight: "bold",
           }}
         >
           Getting Started
@@ -361,7 +537,7 @@ const Errander = ({
             {first ? (
               <div className="modals-f">
                 <button onClick={firstClose} className="hr-btn">
-                  <MdCancel />
+                  <RxCross2 />
                 </button>
                 <h4>
                   To become a Errander, you will need to meet the following
@@ -402,7 +578,7 @@ const Errander = ({
             {sec ? (
               <div className="sec-modal">
                 <button onClick={secClose} className="hr-btn">
-                  <MdCancel />
+                  <RxCross2 />
                 </button>
                 <h4>
                   You can decide the categories in which you task and the skills
@@ -424,7 +600,7 @@ const Errander = ({
             {third ? (
               <div className="sec-modal">
                 <button onClick={thirdClose} className="hr-btn">
-                  <MdCancel />
+                  <RxCross2 />
                 </button>
                 <h4>
                   Once you complete registration steps including creating your
@@ -446,7 +622,7 @@ const Errander = ({
             {four ? (
               <div className="sec-modal">
                 <button onClick={fourClose} className="hr-btn">
-                  <MdCancel />
+                  <RxCross2 />
                 </button>
                 <h4>
                   Aidme uses direct deposit to pay Erranders, so a valid
@@ -484,7 +660,7 @@ const Errander = ({
             {six ? (
               <div className="sec-modal">
                 <button onClick={sixClose} className="hr-btn">
-                  <MdCancel />
+                  <RxCross2 />
                 </button>
                 <h4>
                   You can task in 50+ categories and use a variety of skills{" "}
@@ -501,7 +677,7 @@ const Errander = ({
             {last ? (
               <div className="sec-modal">
                 <button onClick={lastClose} className="hr-btn">
-                  <MdCancel />
+                  <RxCross2 />
                 </button>
                 <h4>
                   Processing time may vary by country, but most registrants are
