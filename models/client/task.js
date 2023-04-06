@@ -7,26 +7,32 @@ const AddressSchema = new Schema({
   _id: ObjectId,
   street: {
     type: String,
-    required: true,
+    required: [true, 'Street is required'],
     trim: true,
   },
   city: {
     type: String,
-    required: true,
+    required: [true, 'City is required'],
     trim: true,
   },
   state: {
     type: String,
-    required: true,
+    required: [true, 'State is required'],
     trim: true,
   },
   country: {
     type: String,
-    required: true,
+    required: [true, 'Country is required'],
     trim: true,
   },
   zipCode: {
     type: String,
+    validate: {
+      validator: function(v) {
+        return /^[0-9]{5}(?:-[0-9]{4})?$/.test(v);
+      },
+      message: props => `${props.value} is not a valid ZIP code!`
+    }
   },
 });
 
@@ -35,57 +41,79 @@ const TaskOptionSchema = new Schema({
   _id: ObjectId,
   size: {
       type: String,
-      required: true,
-      enum: ['small', 'medium', 'large'],
+      required: [true, 'Size is required'],
+      enum: {
+        values: ['small', 'medium', 'large'],
+        message: 'Size must be one of small, medium, or large'
+      }
   }
-
 });
-
 
 // Task Schema
 const TaskSchema = new Schema({
   _id: ObjectId,
   user: {
     type: ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
+  },
+  errander: {
+    type: ObjectId,
   },
   startAddress: {
     type: ObjectId,
-    ref: 'Address'
+    ref: 'Address',
+    required: true
   },
   endAddress: {
     type: ObjectId,
-    ref: 'Address'
+    ref: 'Address',
+    required: true
   },
   taskOption: {
     type: ObjectId,
-    ref: 'TaskOption'
+    ref: 'TaskOption',
+    required: true
   },
   vehicleRequirement: {
     type: String,
-    enum: ['none', 'car', 'truck']
+    enum: {
+      values: ['none', 'car', 'truck'],
+      message: 'Vehicle requirement must be none, car, or truck'
+    }
   },
   taskDetail: {
     type: String,
-    required: true
+    required: [true, 'Task detail is required']
+  },
+  startDate: {
+    type: Date,
+    validate: {
+      validator: function(v) {
+        return new Date(v) !== "Invalid Date" && !isNaN(new Date(v));
+      },
+      message: props => `${props.value} is not a valid date!`
+    }
   },
   dueDate: {
-    type: String
+    type: Date,
+    validate: {
+      validator: function(v) {
+        return new Date(v) !== "Invalid Date" && !isNaN(new Date(v));
+      },
+      message: props => `${props.value} is not a valid date!`
+    }
   },
   status: {
     type: String,
-    enum: ['in progress', 'completed'],
-  },
-  budget: {
-    amount: {
-      type: Number
-    },
-    currency: {
-      type: String,
-      default: "usd"
+    default: 'open',
+    enum: {
+      values: ['open', 'in progress', 'completed'],
+      message: 'Status must be either in progress or completed'
     }
   }
-}, { 
+},
+   { 
   timestamps: { 
     createdAt: 'created_at',
    updatedAt: 'updated_at' 
