@@ -133,33 +133,33 @@ const Errander = ({
   };
 
   // Login details
-  const [usernameInputValue, setUsernameInputValue] = useState("");
-  const [passwordInputValue, setPasswordInputValue] = useState("");
+  // const [usernameInputValue, setUsernameInputValue] = useState("");
+  // const [passwordInputValue, setPasswordInputValue] = useState("");
 
-  const handleUsernameInputChange = (event) => {
-    setUsernameInputValue(event.target.value);
-  };
-  const handlePasswordInputChange = (event) => {
-    setPasswordInputValue(event.target.value);
-  };
-  const handleLogin = (event) => {
-    const login = "https://aidme.onrender.com/v1/errander/auth/login";
-    event.preventDefault();
-    console.log(usernameInputValue, passwordInputValue);
-    axios
-      .post(login, {
-        email: usernameInputValue,
-        password: passwordInputValue,
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    setPasswordInputValue("");
-    setUsernameInputValue("");
-  };
+  // const handleUsernameInputChange = (event) => {
+  //   setUsernameInputValue(event.target.value);
+  // };
+  // const handlePasswordInputChange = (event) => {
+  //   setPasswordInputValue(event.target.value);
+  // };
+  // const handleLogin = (event) => {
+  //   const login = "https://aidme.onrender.com/v1/errander/auth/login";
+  //   event.preventDefault();
+  //   console.log(usernameInputValue, passwordInputValue);
+  //   axios
+  //     .post(login, {
+  //       email: usernameInputValue,
+  //       password: passwordInputValue,
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //   setPasswordInputValue("");
+  //   setUsernameInputValue("");
+  // };
 
   return (
     <div>
