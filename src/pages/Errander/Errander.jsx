@@ -17,7 +17,7 @@ import { MdCancel } from "react-icons/md";
 import { AiFillEyeInvisible } from "react-icons/ai";
 import { AiFillEye } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
-import axios from "axios";
+import Axios from "axios";
 
 const Errander = ({
   open,
@@ -63,15 +63,16 @@ const Errander = ({
 
   // Sign up details
   const [values, setValues] = useState({
-    firstName: "",
-    email: "",
-    lastName: "",
-    phone: "",
-    password: "",
-    state: "",
-    address: "",
-    country: "",
-    gender:'',
+    firstName: "oluwaseyi",
+    email: "oluwaseyiadeoti825@gmail.com",
+    lastName: "Adeoti",
+    phone: "9166164586",
+    password: "Godis246",
+    state: "Lagos state",
+    address: "10 adewale street",
+    country: "Nigeria",
+    gender: "male",
+    countryCode:'234'
   });
 
   const handleChange = (event) => {
@@ -84,29 +85,38 @@ const Errander = ({
       };
     });
   };
-  const handleSubmit =  (event) => {
-    const url = "https://aidme.onrender.com/v1/errander/auth/register";
+  const handleSubmit = (event) => {
+    const url = "https://aidmenew.onrender.com/v1/errander/auth/register";
     event.preventDefault();
-    axios
-      .post(url, {
-        firstName: values.firstName,
-        email: values.email,
-        lastName: values.lastName,
-        phone: values.phone,
-        password: values.password,
-        state: values.state,
-        address: values.address,
-        country: values.country,
-        gender:values.gender,
-        countryCode:values.countryCode,
-      })
+    Axios.post(url, {
+      // firstName: values.firstName,
+      // email: values.email,
+      // lastName: values.lastName,
+      // phone: values.phone,
+      // password: values.password,
+      // state: values.state,
+      // address: values.address,
+      // country: values.country,
+      // gender: values.gender,
+      // countryCode: values.countryCode,
+      "email": "johnny@gmail.com",
+      "firstName": "john",
+      "lastName": "doe",
+      "phoneNumber": "1234567890",
+      "countryCode": "234",
+      "address": "2 wale street",
+      "country": "nigeria",
+      "gender": "male",
+      "state": "Abia state",
+      "password": "123456789"
+    })
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
       })
       .catch((err) => {
         console.log(err.response);
       });
-    alert('log in success')
+    // alert('log in success')
     // console.log(values);
     setValues({
       firstName: "",
@@ -117,8 +127,8 @@ const Errander = ({
       state: "",
       address: "",
       country: "",
-      countryCode:'',
-      gender:'',
+      countryCode: "",
+      gender: "",
     });
   };
 
@@ -246,7 +256,7 @@ const Errander = ({
                 placeholder="Your Email * "
                 className="input"
                 name="email"
-                values={values.email}
+                value={values.email}
                 onChange={handleChange}
                 required
               />
@@ -307,7 +317,7 @@ const Errander = ({
                 onChange={handleChange}
                 required
               />
-                <input
+              <input
                 type="text"
                 placeholder="Gender*"
                 name="gender"
@@ -316,7 +326,7 @@ const Errander = ({
                 onChange={handleChange}
                 required
               />
-               <input
+              <input
                 type="text"
                 placeholder="Address*"
                 name="address"
