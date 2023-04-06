@@ -147,7 +147,7 @@ function Home() {
               Achieve more with ease - hear the sweet sound of accomplished
               tasks
             </article>
-            <Link to="/signup">
+            <Link to="/Signup"> 
               <Button
                 input="Sign Up"
                 color="#fff"
@@ -156,6 +156,7 @@ function Home() {
               />
             </Link>
           </div>
+
           <img className="whiteline" src={whiteline} />
 
           <div className="errander_modal">

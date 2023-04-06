@@ -435,7 +435,7 @@ const Errander = ({
             <p>
               Earn money on your own terms with our platform! You keep 100% of
               what you charge for your services, plus any tips. We only charge a
-              small 2% fee on your earnings. Get paid directly and securely
+              small % fee on your earnings. Get paid directly and securely
               through our invoice and payment system.
             </p>
           </section>
@@ -569,14 +569,10 @@ const Errander = ({
                   </li>
                   <li>
                     Have a smartphone. You'll be managing your tasks through our
-                    Aid me website, which is compatible with iOS or Android.
-                    Provide valid U.S. Social Security number.
+                    Aid me website.
+                    Provide valid Driver License, Passport, Identity Card.
                   </li>
-                  <li>
-                    In applicable cities, pay a one time, non-refundable $5
-                    registration fee. This helps us provide the best service to
-                    our Errander community.
-                  </li>
+               
                 </ul>
               </div>
             ) : null}
@@ -595,7 +591,7 @@ const Errander = ({
                   you use. <br />
                   For some categories, you don’t necessarily need previous
                   experience (like Delivery or Errands). <br />
-                  For other categories (like Minor Home Repairs, IKEA Assembly),{" "}
+                  For other categories (like Minor Home Repairs, ),{" "}
                   <br />
                   you should have — or be able and willing to learn — the proper
                   skills <br />
