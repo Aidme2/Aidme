@@ -1,21 +1,18 @@
-
 const httpStatus = require('http-status');
 const mongoose= require('mongoose');
-const Client = require('../../models/client/user');
-const { filterObjectData } = require('../../utils/helpers');
 const { Task, Address, TaskOption } = require('../../models/client/task');
-const {ClientAuth} = require('../../middlewares/auth');
-
+const axios = require('axios');
 
 
 let dashboardController = {};
 
 
 dashboardController.createTask = async function(req,res) {
-    try {
-        const { startAddress,
-             endAddress, taskOption, taskDetail, vehicleRequirement, dueDate, status, budget } = req.body;
-       // Create start and end addresses
+  try {
+      const { startAddress,
+            endAddress, taskOption, taskDetail, vehicleRequirement, startDate, dueDate, status, budget } = req.body;
+
+       
        const startAddressDoc = await Address.create({
         _id: new mongoose.Types.ObjectId(),
         ...startAddress
@@ -29,7 +26,7 @@ dashboardController.createTask = async function(req,res) {
        // Get the user ID from the JWT authorization key
        const userId = req.id;
 
-        
+
         // Create task option 
         const taskOptionDoc = await TaskOption.create({
             _id: new mongoose.Types.ObjectId(),
@@ -45,6 +42,7 @@ dashboardController.createTask = async function(req,res) {
             user : userId,
             taskDetail,
             vehicleRequirement,
+            startDate,
             dueDate,
             status,
             budget
@@ -58,6 +56,24 @@ dashboardController.createTask = async function(req,res) {
        res.status(httpStatus.BAD_REQUEST).send(err);
    }
 }
+
+dashboardController.trackTask = async function(req,res) {
+
+  const {status} = req.query;
+
+  if (status !== 'open' && status !== 'in progress' && status !== 'completed') {
+   return res.status(httpStatus.BAD_REQUEST).json({ error: 'Invalid status parameter' });
+  }
+
+  try {
+    const tasks = await Task.find({ status });
+    res.json(tasks);
+  } catch (err) {
+    next(err);
+  }
+
+
+};
 
 
 module.exports = dashboardController;
